@@ -6,59 +6,7 @@
 //
 
 import UIKit
-
-class TableHeader: UITableViewHeaderFooterView {
-    static let identifier = "TableHeader"
-    
-    let stackView : UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    let valueLabel : UILabel = {
-        let label = UILabel()
-        label.text = "Value"
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let countLabel : UILabel = {
-        let label = UILabel()
-        label.text = "Count"
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(stackView)
-        stackView.addArrangedSubview(valueLabel)
-        stackView.addArrangedSubview(countLabel)
-        stackView.backgroundColor = .systemGray6
-        let constraints = [
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor ),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class TableFooter: UITableViewHeaderFooterView {
-    static let identifier = "TableFooter"
-}
+ 
 //MARK: - InputViewController
 class InputViewController: UIViewController {
     //MARK: - UI
@@ -131,10 +79,12 @@ class InputViewController: UIViewController {
     
     let tableView : UITableView = {
         let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.identifier)
         table.register(TableHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        table.register(TableFooter.self, forHeaderFooterViewReuseIdentifier: "footer")
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .systemGray6
+        table.separatorStyle = .none
         return table
     }()
     //MARK: - ViewDidLoad
@@ -196,11 +146,19 @@ extension InputViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "some text goes here"
+        let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.identifier, for: indexPath)
         return cell
     }
+    //footer
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer")
+        return footer
+    }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 46
+    }
+    //header
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
         return header
@@ -208,5 +166,10 @@ extension InputViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //36 top 8 bottom 8
+        return 52
     }
 }
