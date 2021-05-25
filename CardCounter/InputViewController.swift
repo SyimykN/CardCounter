@@ -7,13 +7,20 @@
 
 import UIKit
 
+class TableHeader: UITableViewHeaderFooterView {
+    
+}
+
+class TableFooter: UITableViewHeaderFooterView {
+    
+}
+
 class InputViewController: UIViewController {
     //MARK: - UI
     let stackView : UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-//        stackView.backgroundColor = .systemGray3
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -28,7 +35,6 @@ class InputViewController: UIViewController {
     let leftView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .red
         return view
     }()
     
@@ -77,6 +83,14 @@ class InputViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
+    let tableView : UITableView = {
+        let table = UITableView()
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.backgroundColor = .systemRed
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
     //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +104,8 @@ class InputViewController: UIViewController {
         leftView.addSubview(sumTextField)
         rightView.addSubview(cardTitleLabel)
         rightView.addSubview(cardTextField)
+        view.addSubview(tableView)
+        tableView.dataSource = self
         
         let constraints = [
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -117,11 +133,25 @@ class InputViewController: UIViewController {
             stackViewBottomView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
             stackViewBottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             stackViewBottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            stackViewBottomView.heightAnchor.constraint(equalToConstant: 2)
+            stackViewBottomView.heightAnchor.constraint(equalToConstant: 2),
+            
+            tableView.topAnchor.constraint(equalTo: stackViewBottomView.bottomAnchor, constant: 4),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
 
         NSLayoutConstraint.activate(constraints)
     }
 }
-
-
+extension InputViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "some text goes here"
+        return cell
+    }
+}
