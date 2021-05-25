@@ -8,13 +8,58 @@
 import UIKit
 
 class TableHeader: UITableViewHeaderFooterView {
+    static let identifier = "TableHeader"
     
+    let stackView : UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    let valueLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Value"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let countLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Count"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(stackView)
+        stackView.addArrangedSubview(valueLabel)
+        stackView.addArrangedSubview(countLabel)
+        stackView.backgroundColor = .systemGray6
+        let constraints = [
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor ),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 class TableFooter: UITableViewHeaderFooterView {
-    
+    static let identifier = "TableFooter"
 }
-
+//MARK: - InputViewController
 class InputViewController: UIViewController {
     //MARK: - UI
     let stackView : UIStackView = {
@@ -87,8 +132,9 @@ class InputViewController: UIViewController {
     let tableView : UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        table.backgroundColor = .systemRed
+        table.register(TableHeader.self, forHeaderFooterViewReuseIdentifier: "header")
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.backgroundColor = .systemGray6
         return table
     }()
     //MARK: - ViewDidLoad
@@ -106,7 +152,7 @@ class InputViewController: UIViewController {
         rightView.addSubview(cardTextField)
         view.addSubview(tableView)
         tableView.dataSource = self
-        
+        tableView.delegate = self
         let constraints = [
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -116,18 +162,18 @@ class InputViewController: UIViewController {
             sumTitleLabel.leadingAnchor.constraint(equalTo: leftView.leadingAnchor, constant: 8),
             sumTitleLabel.topAnchor.constraint(equalTo: leftView.topAnchor, constant: 4),
             cardTitleLabel.topAnchor.constraint(equalTo: rightView.topAnchor, constant: 4),
-            cardTitleLabel.leadingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: 8),
+//            cardTitleLabel.leadingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: 8),
             
             sumTextField.topAnchor.constraint(equalTo: sumTitleLabel.bottomAnchor, constant: 8),
             sumTextField.heightAnchor.constraint(equalToConstant: 35),
             sumTextField.centerXAnchor.constraint(equalTo: leftView.centerXAnchor),
             sumTextField.leadingAnchor.constraint(equalTo: leftView.leadingAnchor, constant: 8),
-            sumTextField.trailingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: -8),
+//            sumTextField.trailingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: -8),
             
             cardTextField.topAnchor.constraint(equalTo: cardTitleLabel.bottomAnchor, constant: 8),
             cardTextField.heightAnchor.constraint(equalToConstant: 35),
-            cardTextField.centerXAnchor.constraint(equalTo: rightView.centerXAnchor),
-            cardTextField.leadingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: 8),
+//            cardTextField.centerXAnchor.constraint(equalTo: rightView.centerXAnchor),
+            cardTextField.leadingAnchor.constraint(equalTo: rightView.leadingAnchor),
             cardTextField.trailingAnchor.constraint(equalTo: rightView.trailingAnchor, constant: -8),
             
             stackViewBottomView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
@@ -140,11 +186,11 @@ class InputViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
-
+        
         NSLayoutConstraint.activate(constraints)
     }
 }
-extension InputViewController : UITableViewDataSource {
+extension InputViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -153,5 +199,14 @@ extension InputViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = "some text goes here"
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
 }
