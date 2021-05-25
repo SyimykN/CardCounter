@@ -8,22 +8,28 @@
 import UIKit
 
 class ResultViewController: UIViewController {
-
+    let inputVC = InputViewController()
+    var sum = 0
+    var numOfCards = 0
+    var arrayOfValueAndCount : [ValueCount] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemGray6
+        title = "Result"
+        inputVC.delegate = self
+        print("Sum is \(sum)")
+        print("numOfCards is \(numOfCards)")
+        print("arrayOfValueAndCount is \(arrayOfValueAndCount)")
+        
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension ResultViewController : InputViewControllerDelegate {
+    func receiveData(sum: Int, cards: Int, valueAndCountArray: [ValueCount]) {
+        print("Im triggered")
+        self.sum = sum
+        self.numOfCards = cards
+        self.arrayOfValueAndCount = valueAndCountArray
     }
-    */
-
 }

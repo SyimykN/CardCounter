@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MyTableViewCellDelegate: AnyObject {
-    func textFieldDidCheck(_ cell: MyTableViewCell, textField: UITextField)
+    func textFieldDidCheck(_ cell: MyTableViewCell, textField: UITextField, value : Int, count : Int)
 }
 
 class MyTableViewCell: UITableViewCell {
@@ -74,8 +74,8 @@ class MyTableViewCell: UITableViewCell {
 }
 extension MyTableViewCell : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let safeText = valueTextField.text, safeText != "", let safeText2 = countTextField.text, safeText2 != "" {
-            delegate?.textFieldDidCheck(self, textField: textField)
+        if let value = valueTextField.text, value != "", let count = countTextField.text, count != "" {
+            delegate?.textFieldDidCheck(self, textField: textField, value: Int(value)!, count: Int(count)!)
         }else {
             print("Conditions not met in tableview cell textfields")
         }

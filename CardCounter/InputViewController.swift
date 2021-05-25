@@ -7,9 +7,20 @@
 
 import UIKit
 
+protocol InputViewControllerDelegate : AnyObject {
+    func receiveData(sum : Int, cards : Int, valueAndCountArray : [ValueCount])
+}
+
+struct ValueCount {
+    let value : Int
+    let count : Int
+}
+
 //MARK: - InputViewController
 class InputViewController: UIViewController {
     var numberOfRows = 1
+    var myArray : [ValueCount] = []
+    weak var delegate : InputViewControllerDelegate?
     //MARK: - UI
     let stackView : UIStackView = {
         let stackView = UIStackView()
@@ -182,8 +193,10 @@ extension InputViewController : UITableViewDataSource, UITableViewDelegate {
 }
 
 extension InputViewController: MyTableViewCellDelegate {
-    func textFieldDidCheck(_ cell: MyTableViewCell, textField: UITextField) {
+    func textFieldDidCheck(_ cell: MyTableViewCell, textField: UITextField, value: Int, count: Int) {
         numberOfRows += 1
+        let newValueCount = ValueCount(value: value, count: count)
+        myArray.append(newValueCount)
         self.tableView.reloadData()
     }
 }
@@ -191,9 +204,8 @@ extension InputViewController: MyTableViewCellDelegate {
 extension InputViewController: TableFooterDelegate {    
     func didTapButton(sender: UIButton) {
         if let  cards = cardTextField.text, cards != "", let sum = sumTextField.text, sum != "" {
-            print(sum)
-            print(cards)
-            let vc = UIViewController()
+            let vc = ResultViewController()
+            delegate?.receiveData(sum: Int(sum)!, cards: Int(cards)!, valueAndCountArray: myArray)
             navigationController?.pushViewController(vc, animated: true)
         }else {
             if sumTextField.text == nil || sumTextField.text == ""{
