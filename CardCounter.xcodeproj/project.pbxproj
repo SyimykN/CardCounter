@@ -16,9 +16,11 @@
 		29541E65265CE82700E62235 /* TableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E64265CE82700E62235 /* TableHeader.swift */; };
 		29541E68265CE87E00E62235 /* TableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E67265CE87E00E62235 /* TableFooter.swift */; };
 		29541E6D265CE98300E62235 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E6C265CE98300E62235 /* MyTableViewCell.swift */; };
+		AB5C55A7B0FAEFCAF26E988D /* Pods_CardCounter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2B735860E3B5E1F3A351BF /* Pods_CardCounter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25D21ADC9A7C54541112AEBB /* Pods-CardCounter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardCounter.release.xcconfig"; path = "Target Support Files/Pods-CardCounter/Pods-CardCounter.release.xcconfig"; sourceTree = "<group>"; };
 		29541E3C265CAF0800E62235 /* CardCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29541E3F265CAF0800E62235 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29541E43265CAF0800E62235 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
@@ -30,6 +32,8 @@
 		29541E64265CE82700E62235 /* TableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeader.swift; sourceTree = "<group>"; };
 		29541E67265CE87E00E62235 /* TableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFooter.swift; sourceTree = "<group>"; };
 		29541E6C265CE98300E62235 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
+		7C2B735860E3B5E1F3A351BF /* Pods_CardCounter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardCounter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C355FA43936D6B44E526DAAA /* Pods-CardCounter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardCounter.debug.xcconfig"; path = "Target Support Files/Pods-CardCounter/Pods-CardCounter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB5C55A7B0FAEFCAF26E988D /* Pods_CardCounter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +53,8 @@
 			children = (
 				29541E3E265CAF0800E62235 /* CardCounter */,
 				29541E3D265CAF0800E62235 /* Products */,
+				B186313A4C82C550D83ACF0B /* Pods */,
+				90F96007E5D05005C0426719 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +91,24 @@
 			path = HeaderFooterCell;
 			sourceTree = "<group>";
 		};
+		90F96007E5D05005C0426719 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C2B735860E3B5E1F3A351BF /* Pods_CardCounter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B186313A4C82C550D83ACF0B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C355FA43936D6B44E526DAAA /* Pods-CardCounter.debug.xcconfig */,
+				25D21ADC9A7C54541112AEBB /* Pods-CardCounter.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -91,9 +116,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 29541E50265CAF0800E62235 /* Build configuration list for PBXNativeTarget "CardCounter" */;
 			buildPhases = (
+				D4A20D36094A923D9107E666 /* [CP] Check Pods Manifest.lock */,
 				29541E38265CAF0800E62235 /* Sources */,
 				29541E39265CAF0800E62235 /* Frameworks */,
 				29541E3A265CAF0800E62235 /* Resources */,
+				181860F512AE7B856C9610C0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -147,6 +174,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		181860F512AE7B856C9610C0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CardCounter/Pods-CardCounter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CardCounter/Pods-CardCounter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CardCounter/Pods-CardCounter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4A20D36094A923D9107E666 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CardCounter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		29541E38265CAF0800E62235 /* Sources */ = {
@@ -295,12 +364,14 @@
 		};
 		29541E51265CAF0800E62235 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C355FA43936D6B44E526DAAA /* Pods-CardCounter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P9YJWUFM96;
 				INFOPLIST_FILE = CardCounter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -314,12 +385,14 @@
 		};
 		29541E52265CAF0800E62235 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25D21ADC9A7C54541112AEBB /* Pods-CardCounter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P9YJWUFM96;
 				INFOPLIST_FILE = CardCounter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

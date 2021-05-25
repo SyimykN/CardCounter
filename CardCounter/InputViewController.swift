@@ -6,9 +6,10 @@
 //
 
 import UIKit
- 
+
 //MARK: - InputViewController
 class InputViewController: UIViewController {
+    var numberOfRows = 1
     //MARK: - UI
     let stackView : UIStackView = {
         let stackView = UIStackView()
@@ -103,6 +104,9 @@ class InputViewController: UIViewController {
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
+        cardTextField.delegate = self
+        sumTextField.delegate = self
+        
         let constraints = [
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -112,17 +116,17 @@ class InputViewController: UIViewController {
             sumTitleLabel.leadingAnchor.constraint(equalTo: leftView.leadingAnchor, constant: 8),
             sumTitleLabel.topAnchor.constraint(equalTo: leftView.topAnchor, constant: 4),
             cardTitleLabel.topAnchor.constraint(equalTo: rightView.topAnchor, constant: 4),
-//            cardTitleLabel.leadingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: 8),
+            //            cardTitleLabel.leadingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: 8),
             
             sumTextField.topAnchor.constraint(equalTo: sumTitleLabel.bottomAnchor, constant: 8),
             sumTextField.heightAnchor.constraint(equalToConstant: 35),
             sumTextField.centerXAnchor.constraint(equalTo: leftView.centerXAnchor),
             sumTextField.leadingAnchor.constraint(equalTo: leftView.leadingAnchor, constant: 8),
-//            sumTextField.trailingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: -8),
+            //            sumTextField.trailingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: -8),
             
             cardTextField.topAnchor.constraint(equalTo: cardTitleLabel.bottomAnchor, constant: 8),
             cardTextField.heightAnchor.constraint(equalToConstant: 35),
-//            cardTextField.centerXAnchor.constraint(equalTo: rightView.centerXAnchor),
+            //            cardTextField.centerXAnchor.constraint(equalTo: rightView.centerXAnchor),
             cardTextField.leadingAnchor.constraint(equalTo: rightView.leadingAnchor),
             cardTextField.trailingAnchor.constraint(equalTo: rightView.trailingAnchor, constant: -8),
             
@@ -139,19 +143,23 @@ class InputViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraints)
     }
+    
+    
 }
 extension InputViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.identifier, for: indexPath) as! MyTableViewCell
+        cell.delegate = self
         return cell
     }
     //footer
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer")
+        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as! TableFooter
+        footer.delegate = self
         return footer
     }
     
@@ -169,7 +177,41 @@ extension InputViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //36 top 8 bottom 8
         return 52
+    }
+}
+
+extension InputViewController: MyTableViewCellDelegate {
+    func textFieldDidCheck(_ cell: MyTableViewCell, textField: UITextField) {
+        numberOfRows += 1
+        self.tableView.reloadData()
+    }
+}
+
+extension InputViewController: TableFooterDelegate {    
+    func didTapButton(sender: UIButton) {
+        if let  cards = cardTextField.text, cards != "", let sum = sumTextField.text, sum != "" {
+            print(sum)
+            print(cards)
+            let vc = UIViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        }else {
+            if sumTextField.text == nil || sumTextField.text == ""{
+                sumTextField.layer.borderWidth = 1
+                sumTextField.layer.borderColor = UIColor.red.cgColor
+                sumTextField.placeholder = "Please fill in"
+            }else {
+                cardTextField.placeholder = "Please Fill in"
+                cardTextField.layer.borderWidth = 1
+                cardTextField.layer.borderColor = UIColor.red.cgColor
+            }
+        }
+    }
+}
+
+extension InputViewController : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+        textField.layer.borderColor = UIColor.clear.cgColor
     }
 }

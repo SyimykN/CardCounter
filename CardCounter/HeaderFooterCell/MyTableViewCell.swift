@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MyTableViewCellDelegate: AnyObject {
+    func textFieldDidCheck(_ cell: MyTableViewCell, textField: UITextField)
+}
+
 class MyTableViewCell: UITableViewCell {
     
     let stackView : UIStackView = {
@@ -43,14 +47,16 @@ class MyTableViewCell: UITableViewCell {
     }()
 
    static let identifier = "MyTableViewCell"
-
+    weak var delegate: MyTableViewCellDelegate?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .systemGray6
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(valueTextField)
         stackView.addArrangedSubview(countTextField)
-        
+        valueTextField.delegate = self
+        countTextField.delegate = self
         let constraints = [
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -65,4 +71,13 @@ class MyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+extension MyTableViewCell : UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let safeText = valueTextField.text, safeText != "", let safeText2 = countTextField.text, safeText2 != "" {
+            delegate?.textFieldDidCheck(self, textField: textField)
+        }else {
+            print("Conditions not met in tableview cell textfields")
+        }
+    }
 }
