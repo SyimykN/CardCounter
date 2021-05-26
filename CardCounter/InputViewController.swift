@@ -208,9 +208,47 @@ extension InputViewController: TableFooterDelegate {
     func didTapButton(sender: UIButton) {
         if let  cards = cardTextField.text, cards != "", let sum = sumTextField.text, sum != "" {
             let vc = ResultViewController()
-            vc.sum = Int(sum)!
-            vc.numOfCards = Int(cards)!
-            vc.arrayOfValueAndCount = myArray
+            var valuesTimesCountArray : [Int] = []
+            for item in myArray {
+                let multipliedValue = item.value! * item.count!
+                valuesTimesCountArray.append(multipliedValue)
+            }
+            let sumOfValues = valuesTimesCountArray.reduce(0, +)
+            
+            if sumOfValues < Int(sum)! {
+                vc.footerText = "Amount of money in all your cards is not enough to get \(sum)$"
+            }else{
+                var addedValueAndCountArray : [ValueCount] = []
+                var sumOfMultiplication : [Int] = []
+                
+                for item in myArray {
+                    print("sumOfMultiplication is \(sumOfMultiplication.reduce(0, +))")
+                    if sumOfMultiplication.reduce(0, +) < Int(sum)!{
+                        let multipliedValue = item.value! * item.count!
+                        addedValueAndCountArray.append(item)
+                        sumOfMultiplication.append(multipliedValue)
+                    }else {
+                        break
+                    }
+                }
+                
+                let res = sumOfMultiplication.reduce(0, +)
+                print("addedValueAndCountArray is \(addedValueAndCountArray)")
+                print("sumOfMultiplication is \(sumOfMultiplication)")
+                print("actial number of ValueCount is \(myArray.count)")
+                print("number of added values and counts to make up \(sum) is \(addedValueAndCountArray.count)")
+                
+                //to count how many cards were used
+                var countOfCards : [Int] = []
+                for item in addedValueAndCountArray {
+                    countOfCards.append(item.count!)
+                }
+
+                let sumOfCounts = countOfCards.reduce(0, +)
+                vc.arrayOfValueAndCount = addedValueAndCountArray
+                vc.footerText = "$ \(res), cards used \(sumOfCounts)"
+            }
+            
             navigationController?.pushViewController(vc, animated: true)
         }else {
             if sumTextField.text == nil || sumTextField.text == ""{
