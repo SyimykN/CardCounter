@@ -8,14 +8,15 @@
 import UIKit
 
 struct ValueCount {
-    let value : Int
-    let count : Int
+    var value: Int?
+    var count: Int?
 }
 
 //MARK: - InputViewController
 class InputViewController: UIViewController {
     var numberOfRows = 1
     var myArray : [ValueCount] = []
+    var indexPathsArray : [Int] = []
     //MARK: - UI
     let stackView : UIStackView = {
         let stackView = UIStackView()
@@ -189,10 +190,16 @@ extension InputViewController : UITableViewDataSource, UITableViewDelegate {
 
 extension InputViewController: MyTableViewCellDelegate {
     func textFieldDidCheck(_ cell: MyTableViewCell, textField: UITextField, value: Int, count: Int) {
-        numberOfRows += 1
-        let newValueCount = ValueCount(value: value, count: count)
-        myArray.append(newValueCount)
-        print(myArray)
+        guard let indexpath = tableView.indexPath(for: cell) else { return }
+        if !indexPathsArray.contains(indexpath.row) {
+            indexPathsArray.append(indexpath.row)
+            numberOfRows += 1
+            let newValueCount = ValueCount(value: value, count: count)
+            myArray.append(newValueCount)
+        }else {
+            myArray[indexpath.row].value = value
+            myArray[indexpath.row].count = count
+        }
         self.tableView.reloadData()
     }
 }

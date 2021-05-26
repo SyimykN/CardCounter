@@ -30,7 +30,9 @@ class ResultViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         title = "Result"
-        
+        print(sum)
+        print(numOfCards)
+        print(arrayOfValueAndCount)
         let constraints = [
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -48,7 +50,7 @@ extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  ResultTableViewCell.identifier, for: indexPath) as! ResultTableViewCell
-        cell.resultLabel.text = "50 * 2"
+        cell.resultLabel.text = "Use 2 cards with 50$"
         return cell
     }
     //footer
@@ -56,7 +58,8 @@ extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
         let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as! ResultTableViewFooter
         var valuesArray : [Int] = []
         for item in arrayOfValueAndCount {
-            valuesArray.append(item.value)
+            let multipliedValue = item.value! * item.count!
+            valuesArray.append(multipliedValue)
         }
         let sumOfValues = valuesArray.reduce(0, +)
         if sumOfValues < sum {

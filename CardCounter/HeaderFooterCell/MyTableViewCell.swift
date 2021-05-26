@@ -13,6 +13,9 @@ protocol MyTableViewCellDelegate: AnyObject {
 
 class MyTableViewCell: UITableViewCell {
     
+    var newRow = false
+    var indextPath = 0
+    
     let stackView : UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -80,4 +83,13 @@ extension MyTableViewCell : UITextFieldDelegate {
             print("Conditions not met in tableview cell textfields")
         }
     }
+//
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if let value = valueTextField.text, value.count == 0, let count = countTextField.text, count.count == 0 {
+//            //These textfield is new
+//            newRow = true
+//        }else {
+//            print("These textfield is old one.")
+//        }
+//    }
 }
