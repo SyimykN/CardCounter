@@ -30,8 +30,6 @@ class TableFooter: UITableViewHeaderFooterView {
         contentView.backgroundColor = .systemGray6
         let constraints = [
             button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            button.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             button.heightAnchor.constraint(equalToConstant: 30),
             button.widthAnchor.constraint(equalToConstant: 120),
         ]
