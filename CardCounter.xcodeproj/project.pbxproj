@@ -17,6 +17,7 @@
 		29541E68265CE87E00E62235 /* TableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E67265CE87E00E62235 /* TableFooter.swift */; };
 		29541E6D265CE98300E62235 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E6C265CE98300E62235 /* MyTableViewCell.swift */; };
 		29D3AB9C265E05C2003063DA /* ResultTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3AB9B265E05C2003063DA /* ResultTableViewFooter.swift */; };
+		29D3ABA2265E0D01003063DA /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3ABA1265E0D01003063DA /* ResultTableViewCell.swift */; };
 		AB5C55A7B0FAEFCAF26E988D /* Pods_CardCounter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2B735860E3B5E1F3A351BF /* Pods_CardCounter.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		29541E67265CE87E00E62235 /* TableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFooter.swift; sourceTree = "<group>"; };
 		29541E6C265CE98300E62235 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		29D3AB9B265E05C2003063DA /* ResultTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewFooter.swift; sourceTree = "<group>"; };
+		29D3ABA1265E0D01003063DA /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
 		7C2B735860E3B5E1F3A351BF /* Pods_CardCounter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardCounter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C355FA43936D6B44E526DAAA /* Pods-CardCounter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardCounter.debug.xcconfig"; path = "Target Support Files/Pods-CardCounter/Pods-CardCounter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				29D3AB9B265E05C2003063DA /* ResultTableViewFooter.swift */,
+				29D3ABA1265E0D01003063DA /* ResultTableViewCell.swift */,
 			);
 			path = CellFooter;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				29541E68265CE87E00E62235 /* TableFooter.swift in Sources */,
 				29541E40265CAF0800E62235 /* AppDelegate.swift in Sources */,
 				29541E5D265CB0E200E62235 /* ResultViewController.swift in Sources */,
+				29D3ABA2265E0D01003063DA /* ResultTableViewCell.swift in Sources */,
 				29D3AB9C265E05C2003063DA /* ResultTableViewFooter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

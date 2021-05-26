@@ -15,8 +15,7 @@ class ResultViewController: UIViewController {
     //MARK: - UI
     let tableView : UITableView = {
         let table = UITableView()
-//        table.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.identifier)
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(ResultTableViewCell.self, forCellReuseIdentifier: ResultTableViewCell.identifier)
         table.register(ResultTableViewFooter.self, forHeaderFooterViewReuseIdentifier: "footer")
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .systemGray6
@@ -48,8 +47,8 @@ extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Some text"
+        let cell = tableView.dequeueReusableCell(withIdentifier:  ResultTableViewCell.identifier, for: indexPath) as! ResultTableViewCell
+        cell.resultLabel.text = "50 * 2"
         return cell
     }
     //footer
