@@ -16,6 +16,7 @@
 		29541E65265CE82700E62235 /* TableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E64265CE82700E62235 /* TableHeader.swift */; };
 		29541E68265CE87E00E62235 /* TableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E67265CE87E00E62235 /* TableFooter.swift */; };
 		29541E6D265CE98300E62235 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29541E6C265CE98300E62235 /* MyTableViewCell.swift */; };
+		29D3AB9C265E05C2003063DA /* ResultTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3AB9B265E05C2003063DA /* ResultTableViewFooter.swift */; };
 		AB5C55A7B0FAEFCAF26E988D /* Pods_CardCounter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2B735860E3B5E1F3A351BF /* Pods_CardCounter.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		29541E64265CE82700E62235 /* TableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeader.swift; sourceTree = "<group>"; };
 		29541E67265CE87E00E62235 /* TableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFooter.swift; sourceTree = "<group>"; };
 		29541E6C265CE98300E62235 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
+		29D3AB9B265E05C2003063DA /* ResultTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewFooter.swift; sourceTree = "<group>"; };
 		7C2B735860E3B5E1F3A351BF /* Pods_CardCounter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardCounter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C355FA43936D6B44E526DAAA /* Pods-CardCounter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardCounter.debug.xcconfig"; path = "Target Support Files/Pods-CardCounter/Pods-CardCounter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 				29541E57265CB08C00E62235 /* SceneDelegate.swift */,
 				29541E43265CAF0800E62235 /* InputViewController.swift */,
 				29541E5C265CB0E200E62235 /* ResultViewController.swift */,
+				29D3AB9E265E05E4003063DA /* CellFooter */,
 				29541E6A265CE88600E62235 /* HeaderFooterCell */,
 				29541E48265CAF0800E62235 /* Assets.xcassets */,
 				29541E4A265CAF0800E62235 /* LaunchScreen.storyboard */,
@@ -89,6 +92,14 @@
 				29541E64265CE82700E62235 /* TableHeader.swift */,
 			);
 			path = HeaderFooterCell;
+			sourceTree = "<group>";
+		};
+		29D3AB9E265E05E4003063DA /* CellFooter */ = {
+			isa = PBXGroup;
+			children = (
+				29D3AB9B265E05C2003063DA /* ResultTableViewFooter.swift */,
+			);
+			path = CellFooter;
 			sourceTree = "<group>";
 		};
 		90F96007E5D05005C0426719 /* Frameworks */ = {
@@ -228,6 +239,7 @@
 				29541E68265CE87E00E62235 /* TableFooter.swift in Sources */,
 				29541E40265CAF0800E62235 /* AppDelegate.swift in Sources */,
 				29541E5D265CB0E200E62235 /* ResultViewController.swift in Sources */,
+				29D3AB9C265E05C2003063DA /* ResultTableViewFooter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
