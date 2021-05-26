@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -84,9 +84,9 @@
 		29541E6A265CE88600E62235 /* HeaderFooterCell */ = {
 			isa = PBXGroup;
 			children = (
+				29541E6C265CE98300E62235 /* MyTableViewCell.swift */,
 				29541E67265CE87E00E62235 /* TableFooter.swift */,
 				29541E64265CE82700E62235 /* TableHeader.swift */,
-				29541E6C265CE98300E62235 /* MyTableViewCell.swift */,
 			);
 			path = HeaderFooterCell;
 			sourceTree = "<group>";
@@ -105,7 +105,6 @@
 				C355FA43936D6B44E526DAAA /* Pods-CardCounter.debug.xcconfig */,
 				25D21ADC9A7C54541112AEBB /* Pods-CardCounter.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

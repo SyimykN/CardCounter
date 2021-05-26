@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol InputViewControllerDelegate : AnyObject {
-    func receiveData(sum : Int, cards : Int, valueAndCountArray : [ValueCount])
-}
-
 struct ValueCount {
     let value : Int
     let count : Int
@@ -20,7 +16,6 @@ struct ValueCount {
 class InputViewController: UIViewController {
     var numberOfRows = 1
     var myArray : [ValueCount] = []
-    weak var delegate : InputViewControllerDelegate?
     //MARK: - UI
     let stackView : UIStackView = {
         let stackView = UIStackView()
@@ -197,6 +192,7 @@ extension InputViewController: MyTableViewCellDelegate {
         numberOfRows += 1
         let newValueCount = ValueCount(value: value, count: count)
         myArray.append(newValueCount)
+        print(myArray)
         self.tableView.reloadData()
     }
 }
@@ -205,7 +201,9 @@ extension InputViewController: TableFooterDelegate {
     func didTapButton(sender: UIButton) {
         if let  cards = cardTextField.text, cards != "", let sum = sumTextField.text, sum != "" {
             let vc = ResultViewController()
-            delegate?.receiveData(sum: Int(sum)!, cards: Int(cards)!, valueAndCountArray: myArray)
+            vc.sum = Int(sum)!
+            vc.numOfCards = Int(cards)!
+            vc.arrayOfValueAndCount = myArray
             navigationController?.pushViewController(vc, animated: true)
         }else {
             if sumTextField.text == nil || sumTextField.text == ""{
