@@ -55,7 +55,16 @@ extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
     //footer
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as! ResultTableViewFooter
-//        footer.delegate = self
+        var valuesArray : [Int] = []
+        for item in arrayOfValueAndCount {
+            valuesArray.append(item.value)
+        }
+        let sumOfValues = valuesArray.reduce(0, +)
+        if sumOfValues < sum {
+            footer.resultLabel.text = "Amount of money in all your cards is not enough to get \(sum)$"
+        }else{
+            footer.resultLabel.text = "$502 7 cards"
+        }
         return footer
     }
 }

@@ -10,9 +10,9 @@ import UIKit
 class ResultTableViewFooter: UITableViewHeaderFooterView {
     static let identifier  = "ResultTableViewFooter"
     
-    let resultLabel : UILabel = {
+    var resultLabel : UILabel = {
         let label = UILabel()
-        label.text = "Theres not enough money in your cards!"
+//        label.text = "Theres not enough money in your cards!"
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
