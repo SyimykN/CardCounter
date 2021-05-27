@@ -17,6 +17,8 @@ class InputViewController: UIViewController {
     var numberOfRows = 1
     var myArray : [ValueCount] = []
     var indexPathsArray : [Int] = []
+    var cardsToUse = 0
+    var sum = 0
     //MARK: - UI
     let stackView : UIStackView = {
         let stackView = UIStackView()
@@ -207,6 +209,8 @@ extension InputViewController: MyTableViewCellDelegate {
 extension InputViewController: TableFooterDelegate {    
     func didTapButton(sender: UIButton) {
         if let  cards = cardTextField.text, cards != "", let sum = sumTextField.text, sum != "" {
+            self.cardsToUse = Int(cards)!
+            self.sum = Int(sum)!
             let vc = ResultViewController()
             var valuesTimesCountArray : [Int] = []
             for item in myArray {
@@ -218,35 +222,19 @@ extension InputViewController: TableFooterDelegate {
             if sumOfValues < Int(sum)! {
                 vc.footerText = "Amount of money in all your cards is not enough to get \(sum)$"
             }else{
-                var addedValueAndCountArray : [ValueCount] = []
-                var sumOfMultiplication : [Int] = []
-                
-                for item in myArray {
-                    print("sumOfMultiplication is \(sumOfMultiplication.reduce(0, +))")
-                    if sumOfMultiplication.reduce(0, +) < Int(sum)!{
-                        let multipliedValue = item.value! * item.count!
-                        addedValueAndCountArray.append(item)
-                        sumOfMultiplication.append(multipliedValue)
+                let res = findCombinations(array: myArray)
+                var arrayWithDesiredNumCards : [[Int]] = []
+                for array in res{
+                    if array.count == cardsToUse{
+                        arrayWithDesiredNumCards.append(array)
                     }else {
-                        break
+                        print("you cant make up target with \(cardsToUse) cards!")
                     }
                 }
-                
-                let res = sumOfMultiplication.reduce(0, +)
-                print("addedValueAndCountArray is \(addedValueAndCountArray)")
-                print("sumOfMultiplication is \(sumOfMultiplication)")
-                print("actial number of ValueCount is \(myArray.count)")
-                print("number of added values and counts to make up \(sum) is \(addedValueAndCountArray.count)")
-                
-                //to count how many cards were used
-                var countOfCards : [Int] = []
-                for item in addedValueAndCountArray {
-                    countOfCards.append(item.count!)
-                }
-
-                let sumOfCounts = countOfCards.reduce(0, +)
-                vc.arrayOfValueAndCount = addedValueAndCountArray
-                vc.footerText = "$ \(res), cards used \(sumOfCounts)"
+                print("res is \(res)")
+                print("arrayWithDesiredNumCards is \(arrayWithDesiredNumCards)")
+//                vc.arrayOfValueAndCount = addedValueAndCountArray
+//                vc.footerText = "$ \(res), cards used \(sumOfCounts)"
             }
             
             navigationController?.pushViewController(vc, animated: true)
@@ -268,5 +256,45 @@ extension InputViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 0
         textField.layer.borderColor = UIColor.clear.cgColor
+    }
+}
+//finding ideal ideal desired result
+extension InputViewController{
+    func findCombinations(array : [ValueCount]) -> [[Int]] {
+        //make array of Ints from value repeating count times
+        var arrayOfCards: [Int] = []
+        for item in array{
+            let tempArray = [Int](repeating: item.value!, count: item.count!)
+            for i in tempArray{
+                arrayOfCards.append(i)
+            }
+        }
+        //main functionality is here
+        var resultArray = [[Int]]()
+        _ = subsetNumbers(array: arrayOfCards, target: sum, subsetArray: [],result: &resultArray)
+        return resultArray
+    }
+}
+//funtions
+extension InputViewController {
+    func sum(array : [Int]) -> Int{
+        var sum = 0
+        array.forEach { (item) in
+            sum = item + sum
+        }
+        return sum
+    }
+    func subsetNumbers(array :[Int], target : Int, subsetArray: [Int],result : inout [[Int]]) -> [[Int]]{
+        let s = sum(array: subsetArray)
+        if(s == target){
+    //        print("sum\(subsetArray) = \(target)")
+            result.append(subsetArray)
+        }
+        for i in 0..<array.count{
+            let n = array[i]
+            let remaning = Array(array[(i+1)..<array.count])
+            subsetNumbers(array: remaning, target: target, subsetArray: subsetArray + [n], result: &result)
+        }
+        return result
     }
 }
