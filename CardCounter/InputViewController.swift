@@ -227,14 +227,17 @@ extension InputViewController: TableFooterDelegate {
                 for array in res{
                     if array.count == cardsToUse{
                         arrayWithDesiredNumCards.append(array)
-                    }else {
-                        print("you cant make up target with \(cardsToUse) cards!")
                     }
                 }
-                print("res is \(res)")
-                print("arrayWithDesiredNumCards is \(arrayWithDesiredNumCards)")
-//                vc.arrayOfValueAndCount = addedValueAndCountArray
-//                vc.footerText = "$ \(res), cards used \(sumOfCounts)"
+                //sending results to result vc
+                if arrayWithDesiredNumCards.isEmpty {
+                    vc.array = res
+                }else {
+                    vc.arrayWithDesiredNum = arrayWithDesiredNumCards
+                }
+                vc.secondSum = Int(sum)!
+                vc.sum = self.sum
+                vc.desiredNumCards = cardsToUse
             }
             
             navigationController?.pushViewController(vc, animated: true)
@@ -265,13 +268,23 @@ extension InputViewController{
         var arrayOfCards: [Int] = []
         for item in array{
             let tempArray = [Int](repeating: item.value!, count: item.count!)
+            var j = 0
             for i in tempArray{
+                if item.value! * (j+1) >= sum {
+                    arrayOfCards.append(i)
+                    break
+                }
+                j += 1
                 arrayOfCards.append(i)
             }
         }
-        //main functionality is here
+        //call subset
         var resultArray = [[Int]]()
-        _ = subsetNumbers(array: arrayOfCards, target: sum, subsetArray: [],result: &resultArray)
+        let newArray = subsetNumbers(array: arrayOfCards, target: sum, subsetArray: [],result: &resultArray)
+        while resultArray.isEmpty {
+            sum += 1
+            resultArray = subsetNumbers(array: arrayOfCards, target: sum, subsetArray: [], result: &resultArray)
+        }
         return resultArray
     }
 }
@@ -287,7 +300,6 @@ extension InputViewController {
     func subsetNumbers(array :[Int], target : Int, subsetArray: [Int],result : inout [[Int]]) -> [[Int]]{
         let s = sum(array: subsetArray)
         if(s == target){
-    //        print("sum\(subsetArray) = \(target)")
             result.append(subsetArray)
         }
         for i in 0..<array.count{
