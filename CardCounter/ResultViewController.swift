@@ -50,7 +50,8 @@ class ResultViewController: UIViewController {
 extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if array.isEmpty {
-            return arrayWithDesiredNum.count
+            let set = arrayWithDesiredNum.removeDuplicates()
+            return set.count
         }else {
             let set = array.removeDuplicates()
             return set.count
@@ -60,7 +61,8 @@ extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  ResultTableViewCell.identifier, for: indexPath) as! ResultTableViewCell
         if array.isEmpty {
-            let stringArray = arrayWithDesiredNum[indexPath.row].map { String($0) }
+            let set = arrayWithDesiredNum.removeDuplicates()
+            let stringArray = set[indexPath.row].map { String($0) }
             let stringRepresentation = stringArray.joined(separator: ",")
             cell.resultLabel.text = "Use \(stringRepresentation) cards."
         }else {
@@ -76,7 +78,7 @@ extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as! ResultTableViewFooter
         if array.isEmpty && arrayWithDesiredNum.isEmpty {
-            footer.resultLabel.text = "Amount of money in all your cards is not enough to get \(sum)$"
+            footer.resultLabel.text = "Amount of money in all your cards is not enough."
             return footer
         } else if array.isEmpty {
             footer.resultLabel.text = "\(sum)$ using \(desiredNumCards) cards"
@@ -97,7 +99,6 @@ extension ResultViewController : UITableViewDelegate, UITableViewDataSource {
 extension Array where Element:Equatable {
     func removeDuplicates() -> [Element] {
         var result = [Element]()
-
         for value in self {
             if result.contains(value) == false {
                 result.append(value)

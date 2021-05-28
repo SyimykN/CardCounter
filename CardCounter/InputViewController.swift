@@ -223,23 +223,34 @@ extension InputViewController: TableFooterDelegate {
                 vc.footerText = "Amount of money in all your cards is not enough to get \(sum)$"
             }else{
                 let res = findCombinations(array: myArray)
+                //here LOOPS THROUGH ITEMS of ARRAY INSIDE ARRAY -> [[Int]] and finds if there array with desired cards(cardsToUse)
                 var arrayWithDesiredNumCards : [[Int]] = []
                 for array in res{
                     if array.count == cardsToUse{
                         arrayWithDesiredNumCards.append(array)
                     }
                 }
-                //sending results to result vc
+                //here LOOPS THROUGH ITEMS of ARRAY INSIDE ARRAY -> [[Int]] and finds if theres array with less than desired cards(cardsToUse)
+                var arrayWithLessThanDesiredNumCards : [[Int]] = []
+                for array in res{
+                    if array.count < cardsToUse{
+                        arrayWithLessThanDesiredNumCards.append(array)
+                    }
+                }
+                //sending results to result vc depending if he find with desired num of cards or not
                 if arrayWithDesiredNumCards.isEmpty {
-                    vc.array = res
+                    //sends simple array if combinations want found with desired num of cards
+                    vc.array = arrayWithLessThanDesiredNumCards
                 }else {
+                    //sends sorted result with combinations containing desired num of cards
                     vc.arrayWithDesiredNum = arrayWithDesiredNumCards
                 }
+                //second sum to send initial sum
                 vc.secondSum = Int(sum)!
+                //sum that can be changed if combinations wasnt found for give sum
                 vc.sum = self.sum
                 vc.desiredNumCards = cardsToUse
             }
-            
             navigationController?.pushViewController(vc, animated: true)
         }else {
             if sumTextField.text == nil || sumTextField.text == ""{
@@ -261,7 +272,7 @@ extension InputViewController : UITextFieldDelegate {
         textField.layer.borderColor = UIColor.clear.cgColor
     }
 }
-//finding ideal ideal desired result
+//MARK: - Make new array and give to algorithm
 extension InputViewController{
     func findCombinations(array : [ValueCount]) -> [[Int]] {
         //make array of Ints from value repeating count times
@@ -281,6 +292,8 @@ extension InputViewController{
         //call subset
         var resultArray = [[Int]]()
         let newArray = subsetNumbers(array: arrayOfCards, target: sum, subsetArray: [],result: &resultArray)
+        // FIXME: fix me here
+        //executes if result is empty because cant make a sum from given numbers
         while resultArray.isEmpty {
             sum += 1
             resultArray = subsetNumbers(array: arrayOfCards, target: sum, subsetArray: [], result: &resultArray)
@@ -288,7 +301,8 @@ extension InputViewController{
         return resultArray
     }
 }
-//funtions
+//MARK: - subsetNumbers algorithm
+//holds actual algorithm
 extension InputViewController {
     func sum(array : [Int]) -> Int{
         var sum = 0
